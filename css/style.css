@@ -1,0 +1,37 @@
+
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: aliceblue;
+  }
+
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 40px);
+    grid-template-rows: repeat(5, 40px);
+    padding: 0;
+    width: 160px;
+    height: auto;
+    background-color: antiquewhite;
+
+}
+
+.showbar {
+    grid-area: 1/1/2/5;
+    background-color: aquamarine;
+}
+
+.cells {
+    display: flex;
+    background-color: gray;
+    justify-content: center;
+    align-items: center;
+    grid-area: span 1;
+    border-width: 1px;
+    border-radius: 15px;
+    color: antiquewhite;
+}
