@@ -4,34 +4,36 @@ body {
     height: 100vh;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-color: aliceblue;
   }
 
 
 .container {
     display: grid;
-    grid-template-columns: repeat(4, 40px);
-    grid-template-rows: repeat(5, 40px);
-    padding: 0;
-    width: 160px;
-    height: auto;
-    background-color: antiquewhite;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(5, 50px);
+    background-color: rgb(248, 245, 241);
+    border-color: rgb(144, 144, 159);
+    border-style: solid;
 
 }
 
 .showbar {
     grid-area: 1/1/2/5;
-    background-color: aquamarine;
+    background-color: rgb(232, 246, 195);
+    border-color: rgb(145, 160, 160);
+    border-style: solid;
+    padding-left: 5px;
 }
 
 .cells {
     display: flex;
-    background-color: gray;
-    justify-content: center;
-    align-items: center;
-    grid-area: span 1;
-    border-width: 1px;
-    border-radius: 15px;
-    color: antiquewhite;
+    border-radius: 15px !important;
+    background-color: rgb(184, 215, 111) !important;
+    border: none !important;
+    color: black !important;
+}
+
+.operators {
+    background-color: rgb(159, 198, 198) !important;
 }
