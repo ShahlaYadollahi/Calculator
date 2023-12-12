@@ -1,5 +1,6 @@
 let clickedButtons = '';
 let acceptedChars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '/', '*', '-', '+', '.'];
+const operators = ['+', '-', '/', '*'];
 
 document.addEventListener("keydown", function (event) {
     if (event.key === 'Enter') {
@@ -7,6 +8,7 @@ document.addEventListener("keydown", function (event) {
     }
     if (acceptedChars.includes(event.key)) {
         handleButtonClick(event.key);
+
     }
 
     if (event.key ==='Escape') {
@@ -49,23 +51,22 @@ function submit() {
     } else {
     let listOfOperators = [];
     let stringChars = clickedButtons.split('');
-    if (stringChars[0] === "+" || stringChars[0] === "-" || stringChars[0] === "/" || stringChars[0] === "*") {
+    if (operators.includes(stringChars[0])) {
         stringChars.shift();
     }
 
     for (i = 0; i < stringChars.length; i++) {
-        if (stringChars[i] === "+" || stringChars[i] === "-" || stringChars[i] === "/" || stringChars[i] === "*") {
+        if (operators.includes(stringChars[i])) {
             listOfOperators.push(stringChars[i]);
         }
-        const delimiters = ['/', '+', '-', '*'];
 
         // Create a regular expression dynamically by joining the delimiters with the " | " (OR) operator
-        const delimiterRegExp = new RegExp(delimiters.map(delimiter => '\\' + delimiter).join('|'), 'g');
-        var numsAndOperators = clickedButtons.split(delimiterRegExp)
+        const delimiterRegExp = new RegExp(operators.map(delimiter => '\\' + delimiter).join('|'), 'g');
+        let numsAndOperators = clickedButtons.split(delimiterRegExp);
 
     }
     let num1 = parseFloat(numsAndOperators[0]);
-    let num2 = parseFloat(numsAndOperators[1])
+    let num2 = parseFloat(numsAndOperators[1]);
     let result = 0;
     switch (listOfOperators[0]) {
         case '+':
