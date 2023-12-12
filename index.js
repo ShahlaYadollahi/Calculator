@@ -1,6 +1,6 @@
 let clickedButtons = '';
-let acceptedChars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '/', '*', '-', '+', '.'];
-const operators = ['+', '-', '/', '*'];
+const acceptedChars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '/', '*', '-', '+', '.'];
+const acceptedOps = ['+', '-', '/', '*'];
 
 document.addEventListener("keydown", function (event) {
     if (event.key === 'Enter') {
@@ -11,12 +11,12 @@ document.addEventListener("keydown", function (event) {
 
     }
 
-    if (event.key ==='Escape') {
-        clickedButtons='';
+    if (event.key === 'Escape') {
+        clickedButtons = '';
         document.querySelector('.showbar').textContent = clickedButtons;
 
     }
-})
+});
 
 // Function to handle button clicks
 function handleButtonClick(buttonValue) {
@@ -46,62 +46,65 @@ function handleButtonClick(buttonValue) {
     }
 }
 function submit() {
-    if (typeof clickedButtons==='number') {
-        document.querySelector('.showbar').textContent = clickedButtons;
-    } else {
+    let numsAndOperators=[];
+    let result=0;
     let listOfOperators = [];
-    let stringChars = clickedButtons.split('');
-    if (operators.includes(stringChars[0])) {
-        stringChars.shift();
-    }
 
-    for (i = 0; i < stringChars.length; i++) {
-        if (operators.includes(stringChars[i])) {
-            listOfOperators.push(stringChars[i]);
+    if (typeof clickedButtons === 'number') {
+        result = clickedButtons;
+    } else {
+        
+        let stringChars = clickedButtons.split('');
+        if (acceptedOps.includes(stringChars[0])) {
+            stringChars.shift();
+        }
+
+        for (let i = 0; i < stringChars.length; i++) {
+            if (acceptedOps.includes(stringChars[i])) {
+                listOfOperators.push(stringChars[i]);
+            }
         }
 
         // Create a regular expression dynamically by joining the delimiters with the " | " (OR) operator
-        const delimiterRegExp = new RegExp(operators.map(delimiter => '\\' + delimiter).join('|'), 'g');
-        let numsAndOperators = clickedButtons.split(delimiterRegExp);
+        const delimiterRegExp = new RegExp(acceptedOps.map(delimiter => '\\' + delimiter).join('|'), 'g');
+        numsAndOperators = clickedButtons.split(delimiterRegExp);
+    }
 
+    if (numsAndOperators && numsAndOperators.length === 2) {
+        let num1 = parseFloat(numsAndOperators[0]);
+        let num2 = parseFloat(numsAndOperators[1]);
+
+        result = calculate(num1, num2, listOfOperators[0]);
     }
-    let num1 = parseFloat(numsAndOperators[0]);
-    let num2 = parseFloat(numsAndOperators[1]);
-    let result = 0;
-    switch (listOfOperators[0]) {
-        case '+':
-            result = add(num1, num2);
-            break;
-        case '-':
-            result = subtract(num1, num2);
-            break;
-        case '*':
-            result = multiply(num1, num2);
-            break;
-        case '/':
-            result = divide(num1, num2);
-            break;
+
+    // Do something with the result
+    if (result !== undefined) {
+        document.querySelector('.showresults').textContent = result;
     }
-    document.querySelector('.showbar').textContent = result;
+
     clickedButtons = result;
 
 }
+
+
+function calculate(num1, num2, op) {
+    let f;
+    switch (op) {
+        case '+':
+            f = num1+num2;
+            break;
+        case '-':
+            f = num1-num2;
+            break;
+        case '*':
+            f = num1*num2;
+            break;
+        case '/':
+            f = num1/num2;
+            break;
+        default:
+            console.log("Invalid operator");
+            break;
+    }
+    return f;
 }
-
-
-function add(num1, num2) {
-    return num1 + num2;
-}
-
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-function subtract(num1, num2) {
-    return num1 - num2;
-}
-
-function divide(num1, num2) {
-    return num1 / num2;
-}
-
